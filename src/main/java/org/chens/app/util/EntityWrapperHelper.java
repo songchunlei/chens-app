@@ -9,7 +9,7 @@ import org.chens.app.constants.AppConstants;
 import org.chens.core.constants.CommonConstants;
 import org.chens.core.exception.BaseException;
 import org.chens.core.exception.BaseExceptionEnum;
-import org.chens.framework.login.BaseContextHandler;
+import org.chens.framework.auth.BaseContextHandler;
 import org.chens.core.vo.PageVo;
 
 import java.lang.reflect.Field;

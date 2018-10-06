@@ -19,7 +19,7 @@ import org.chens.app.constants.AppConstants;
 import org.chens.core.constants.CommonConstants;
 import org.chens.app.handler.MyMetaObjectHandler;
 import org.chens.core.enums.YesNoEnum;
-import org.chens.framework.login.BaseContextHandler;
+import org.chens.framework.auth.BaseContextHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -34,8 +34,8 @@ import java.util.List;
 /**
  * Mybatis-plus配置
  *
- * @auther songchunlei@qq.com
- * @create 2018/2/12
+ * @author songchunlei@qq.com
+ * @since 2018/2/12
  */
 public abstract class BaseMybatisPlusConfig {
 
@@ -53,6 +53,7 @@ public abstract class BaseMybatisPlusConfig {
 
     /**
      * mybatis-plus SQL执行效率插件【生产环境可以关闭】
+     *
      * @return
      */
     /*
@@ -61,7 +62,6 @@ public abstract class BaseMybatisPlusConfig {
         return new PerformanceInterceptor();
     }
     */
-
     @Bean
     public MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean() {
 
@@ -90,8 +90,7 @@ public abstract class BaseMybatisPlusConfig {
         if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {
             mybatisPlus.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
         }
-        if(StringUtils.hasLength(this.properties.getTypeEnumsPackage()))
-        {
+        if (StringUtils.hasLength(this.properties.getTypeEnumsPackage())) {
             mybatisPlus.setTypeEnumsPackage(this.properties.getTypeEnumsPackage());
         }
         if (StringUtils.hasLength(this.properties.getTypeHandlersPackage())) {
@@ -104,8 +103,7 @@ public abstract class BaseMybatisPlusConfig {
         //通用全局设置
         GlobalConfiguration globalConfig = new GlobalConfiguration();
         //是否刷新
-        if(properties.getGlobalConfig()!=null)
-        {
+        if (properties.getGlobalConfig() != null) {
             globalConfig.setRefresh(properties.getGlobalConfig().getRefreshMapper());
         }
         //数据库类型
@@ -133,6 +131,7 @@ public abstract class BaseMybatisPlusConfig {
 
     /**
      * 分页插件
+     *
      * @return
      */
     @Bean
@@ -147,8 +146,7 @@ public abstract class BaseMybatisPlusConfig {
             @Override
             public Expression getTenantId() {
                 //从缓存拿租户
-                if(StringUtils.hasLength(BaseContextHandler.getTenantId()))
-                {
+                if (StringUtils.hasLength(BaseContextHandler.getTenantId())) {
                     return new StringValue(BaseContextHandler.getTenantId());
                 }
                 return null;
@@ -162,7 +160,7 @@ public abstract class BaseMybatisPlusConfig {
             @Override
             public boolean doTableFilter(String tableName) {
 
-                boolean flg = AppConstants.NO_TENANT_TABLENAME.indexOf("["+tableName+"]")!=-1;
+                boolean flg = AppConstants.NO_TENANT_TABLENAME.indexOf("[" + tableName + "]") != -1;
                 // 这里可以判断是否过滤表
                 if (flg) {
                     return true;
@@ -182,20 +180,20 @@ public abstract class BaseMybatisPlusConfig {
 
     /**
      * 注入公共字段自动填充,任选注入方式即可
+     *
      * @return
      */
     @Bean
-    public MetaObjectHandler getMetaObjectHandler(){
+    public MetaObjectHandler getMetaObjectHandler() {
         return new MyMetaObjectHandler();
     }
-
 
 
     /**
      * 注入sql注入器
      */
     @Bean
-    public ISqlInjector getSqlInjector(){
+    public ISqlInjector getSqlInjector() {
         return new LogicSqlInjector();
     }
 

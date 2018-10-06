@@ -3,7 +3,7 @@ package org.chens.app.handler;
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.chens.core.constants.CommonConstants;
-import org.chens.framework.login.BaseContextHandler;
+import org.chens.framework.auth.BaseContextHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
